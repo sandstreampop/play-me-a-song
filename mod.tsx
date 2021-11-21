@@ -11,10 +11,10 @@ function App() {
   return (
     <html>
       <head>
-        <title>Hello from JSX</title>
+        <title>play me a song</title>
       </head>
       <body>
-        <h1>Hello world</h1>
+        <h1>play me a song</h1>
       </body>
     </html>
   );
