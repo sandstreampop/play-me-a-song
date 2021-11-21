@@ -16,23 +16,33 @@ function App() {
       <body>
         <h1>play me a song</h1>
         <canvas id="canvas"></canvas>
-        <script>
-          const canvas = document.getElementById('canvas'); 
-          const ctx = canvas.getContext('2d');
-          ctx.fillStyle = 'green'; ctx.fillRect(10, 10, 150, 100);
-        </script>
+        <script src="./main.js"></script>
       </body>
     </html>
   );
 }
 
-function handler(req: Request) {
-  const html = renderSSR(<App />);
-  return new Response(html, {
-    headers: {
-      "content-type": "text/html",
-    },
-  });
+async function handler(req: Request) {
+  try {
+    if (req.url.includes("main.js")) {
+      const file = await Deno.readFile("./main.js");
+      return new Response(file, {
+        headers: {
+          "content-type": "application/javascript",
+        },
+      });
+    } else {
+      const html = renderSSR(<App />);
+      return new Response(html, {
+        headers: {
+          "content-type": "text/html",
+        },
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    return new Response("Unexpected error", { status: 500 });
+  }
 }
 
 console.log("Listening on http://localhost:8000");
