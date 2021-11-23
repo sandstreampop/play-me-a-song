@@ -17,7 +17,7 @@ function draw(canvas: HTMLCanvasElement) {
 
   if (ctx === null) return;
 
-  ctx.fillStyle = "green";
+  ctx.fillStyle = "black";
   ctx.fillRect(10, 10, 150, 100);
 }
 
@@ -27,3 +27,14 @@ function isCanvas(maybeCanvas: any): maybeCanvas is HTMLCanvasElement {
   if (maybeCanvas === undefined) return false;
   return typeof maybeCanvas.getContext === "function";
 }
+
+const constraints = {
+  video: true,
+};
+
+const video = document.querySelector("video");
+
+navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+  if(video) video.srcObject = stream;
+  const track = stream.getVideoTracks()[0];
+});

@@ -15,6 +15,7 @@ function App() {
       </head>
       <body>
         <h1>play me a song</h1>
+        <video autoplay controls></video>
         <canvas id="canvas"></canvas>
         <script src="./main.js"></script>
       </body>
